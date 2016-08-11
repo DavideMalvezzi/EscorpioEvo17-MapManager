@@ -35,7 +35,7 @@
 
            <div class="row">
              <div class="col-xs-12">
-               <h4>Select a track:</h4>
+               <label for="track-combo">Select a track:</label>
              </div>
            </div>
 
@@ -48,7 +48,9 @@
                <button type="button" class="btn btn-default">Edit</button>
              </div>
            </div>
+
            <hr>
+
            <div class="row">
              <div class="col-xs-12">
                <div class="form-group">
@@ -78,6 +80,60 @@
                    <span class="glyphicon glyphicon-map-marker"></span>
                  </button>
               </div>
+             </div>
+           </div>
+
+           <hr>
+
+           <div class="row">
+             <div class="col-xs-12">
+               <label for="filter-none" class="radio-inline">
+                 <input type="radio" id="filter-none" name="filter-type" onclick="">Way Points
+               </label>
+
+               <label for="filter-range" class="radio-inline">
+                 <input type="radio" id="filter-range" name="filter-type" onclick="">Path
+               </label>
+             </div>
+           </div>
+
+           <hr>
+
+           <div class="row">
+             <div class="col-xs-6">
+               <label for="">Way Points:</label>
+             </div>
+             <div class="col-xs-6">
+              <div class="btn-group btn-group-sm pull-right">
+                <button type="button" class="btn btn-primary">
+                  <span class="glyphicon glyphicon-plus"></span>
+                </button>
+                <button type="button" class="btn btn-primary">
+                  <span class="glyphicon glyphicon-minus"></span>
+                </button>
+              </div>
+             </div>
+           </div>
+
+           <div class="row">
+             <div class="col-xs-12">
+               <select multiple class="form-control" name="">
+
+               </select>
+             </div>
+           </div>
+
+           <hr>
+
+           <div class="row">
+             <div class="col-xs-2">
+
+             </div>
+             <div class="col-xs-8">
+               <button type="button" class="btn btn-primary fill">Save</button>
+             </div>
+             <div class="col-xs-push-2">
+
              </div>
            </div>
 

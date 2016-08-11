@@ -3,6 +3,10 @@ body{
   color: white;
 }
 
+.fill{
+  min-width: 100%;
+}
+
 #gui-container{
   background-color: #1d1d1d;
   border-radius: 10px;

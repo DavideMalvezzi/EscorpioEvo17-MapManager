@@ -19,6 +19,7 @@
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <script src="js/map.js"></script>
+    <script src="js/bootstrap_utils.js"></script>
     <script src="js/ui_interface.js"></script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?v=3.exp&callback=initMap&key=AIzaSyAD9MxVhOWQBHC9FHkkLrBO45zrnRKj6ng"></script>
   </head>
@@ -44,7 +45,7 @@
                                                 centerLat: '. $row['center_lat'] .',
                                                 centerLon: ' . $row['center_lon'] . ',
                                                 waypoints: ' . $row['waypoints'] . ',
-                                                path: jQuery.parseJSON(' . $row['path'] . ')
+                                                path: '. $row['path'] . '
                                               };' . PHP_EOL;
           }
         ?>
@@ -115,12 +116,12 @@
 
            <div class="row">
              <div class="col-xs-12">
-               <label for="filter-none" class="radio-inline">
-                 <input type="radio" id="filter-none" name="filter-type" onclick="">Way Points
+               <label for="edit-waypoints-radio" class="radio-inline">
+                 <input type="radio" id="edit-waypoints-radio" name="edit-type" onclick="enableWaypointsEditing()" checked>Way Points
                </label>
 
-               <label for="filter-range" class="radio-inline">
-                 <input type="radio" id="filter-range" name="filter-type" onclick="">Path
+               <label for="edit-path-radio" class="radio-inline">
+                 <input type="radio" id="edit-path-radio" name="edit-type" onclick="enablePathEditing()">Path
                </label>
              </div>
            </div>
@@ -133,11 +134,17 @@
              </div>
              <div class="col-xs-6">
               <div class="btn-group btn-group-sm pull-right">
-                <button type="button" class="btn btn-primary">
+                <button type="button" id="add-waypoint-btn" class="btn btn-primary">
                   <span class="glyphicon glyphicon-plus"></span>
                 </button>
-                <button type="button" class="btn btn-primary">
+                <button type="button" id="remove-waypoint-btn" class="btn btn-primary">
                   <span class="glyphicon glyphicon-minus"></span>
+                </button>
+                <button type="button" id="edit-waypoint-btn" class="btn btn-primary">
+                  <span class="glyphicon glyphicon-edit"></span>
+                </button>
+                <button type="button" id="go-waypoint-btn"  class="btn btn-primary" onclick="showWaypoint()">
+                  Go
                 </button>
               </div>
              </div>
@@ -145,8 +152,7 @@
 
            <div class="row">
              <div class="col-xs-12">
-               <select multiple class="form-control" name="">
-
+               <select id="waypoints-combo" class="form-control">
                </select>
              </div>
            </div>
@@ -154,14 +160,15 @@
            <hr>
 
            <div class="row">
-             <div class="col-xs-2">
-
+             <div class="col-xs-1">
              </div>
-             <div class="col-xs-8">
+             <div class="col-xs-5">
                <button type="button" class="btn btn-primary fill">Save</button>
              </div>
-             <div class="col-xs-push-2">
-
+             <div class="col-xs-5">
+               <button type="button" class="btn btn-primary fill">Download CFG</button>
+             </div>
+             <div class="col-xs-1">
              </div>
            </div>
 

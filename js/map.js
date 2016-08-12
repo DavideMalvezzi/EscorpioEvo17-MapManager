@@ -1,6 +1,7 @@
 var map;
 var poly;
 var center;
+var waypoints = [];
 
 function initMap() {
   map = new google.maps.Map(document.getElementById('map-container'), {
@@ -11,9 +12,11 @@ function initMap() {
   });
 
   poly = new google.maps.Polyline({
-    strokeColor: '#000000',
-    strokeOpacity: 1.0,
-    strokeWeight: 3,
+    map: map,
+    geodesic: true,
+    strokeColor: '#ff0000',
+    strokeOpacity: 1,
+    strokeWeight: 5,
     editable: true
   });
 
@@ -53,4 +56,36 @@ function panTo(pos){
 
 function setZoom(zoom){
   map.setZoom(zoom);
+}
+
+function clearWaypoints(){
+  for(var i = 0; i < waypoints.length; i++){
+    waypoints[i].setMap(null);
+  }
+  waypoints.splice(0, waypoints.length);
+}
+
+function addWayPoint(lat, lon){
+  waypoints.push(new google.maps.Marker({
+        position: {lat: lat, lng: lon},
+        map: map,
+        title: 'Center'
+    })
+  );
+}
+
+function panToWaypoint(index){
+  map.setCenter(waypoints[index].getPosition());
+}
+
+function setPolylinePath(path){
+  poly.setPath(path);
+}
+
+function hidePolyline(){
+  poly.setMap(null);
+}
+
+function showPolyline(){
+  poly.setMap(map);
 }

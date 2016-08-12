@@ -1,9 +1,12 @@
 var map;
 var poly;
+var center;
 
 function initMap() {
   map = new google.maps.Map(document.getElementById('map-container'), {
     zoom: 2,
+    mapTypeId: 'satellite',
+    streetViewControl: false,
     center: {lat: 0, lng: 0}
   });
 
@@ -29,4 +32,25 @@ function initMap() {
     }
   );
   */
+
+  center = new google.maps.Marker({
+      position: {lat: 0, lng: 0},
+      map: map,
+      title: 'Center'
+    });
+
+}
+
+
+function setCenter(lat, lon){
+  center.setPosition({lat: lat, lng: lon});
+  panTo(new google.maps.LatLng(lat, lon));
+}
+
+function panTo(pos){
+  map.panTo(pos);
+}
+
+function setZoom(zoom){
+  map.setZoom(zoom);
 }

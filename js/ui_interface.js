@@ -2,10 +2,10 @@ var tracks = [];
 var mode = "waypoints";
 
 function reloadTrackList(){
-  $("#track-combo").empty();
-
   var request = {};
   request['cmd'] = 'get_all';
+
+  $("#track-combo").empty()
 
   ajaxRequest(request,
     function(response){
@@ -20,6 +20,41 @@ function reloadTrackList(){
       }
     }
   );
+}
+
+function addTrack(){
+  var request = {};
+  request['cmd'] = 'add';
+
+  ajaxRequest(request,
+    function(response){
+      if(response.result === 'ok'){
+        reloadTrackList();
+      }
+      else{
+        console.log(response.error);
+      }
+    }
+  );
+}
+
+function removeTrack(){
+  if(tracks.length > 0){
+    var request = {};
+    request['cmd'] = 'remove';
+    request['id'] = tracks[parseInt($("#track-combo").val())].id;
+
+    ajaxRequest(request,
+      function(response){
+        if(response.result === 'ok'){
+          reloadTrackList();
+        }
+        else{
+          console.log(response.error);
+        }
+      }
+    );
+  }
 }
 
 function editTrack(){

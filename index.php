@@ -37,23 +37,8 @@
       ?>
 
       $(function(){
-        <?php
-        /*
-          $sql = "SELECT * FROM track ORDER BY id ASC";
-          $result = $conn->query($sql);
-          while($row = $result->fetch_assoc()){
-            echo 'tracks[' . $row['id'] .'] = { name: "' .  $row['name'] . '",
-                                                centerLat: '. $row['center_lat'] .',
-                                                centerLon: ' . $row['center_lon'] . ',
-                                                waypoints: ' . $row['waypoints'] . ',
-                                                path: '. $row['path'] . '
-                                              };' . PHP_EOL;
-          }
-          */
-        ?>
         initMap();
         reloadTrackList();
-
       });
     </script>
 
@@ -75,13 +60,13 @@
                <div class="form-group">
                  <label for="">&nbsp</label><br>
                  <div class="btn-group btn-group-sm">
-                   <button type="button" class="btn btn-primary" onclick="editTrack();">
+                   <button type="button" class="btn btn-primary" onclick="addTrack();">
                      <span class="glyphicon glyphicon-plus"></span>
                    </button>
                    <button type="button" class="btn btn-primary" onclick="editTrack();">
                      <span class="glyphicon glyphicon-edit"></span>
                    </button>
-                   <button type="button" class="btn btn-primary" onclick="editTrack();">
+                   <button type="button" class="btn btn-primary" onclick="removeTrack();">
                      <span class="glyphicon glyphicon-minus"></span>
                    </button>
                  </div>

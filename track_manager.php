@@ -19,7 +19,7 @@
     $response['tracks'] = $tracks;
 
   }
-  else if($request->cmd === 'new'){
+  else if($request->cmd === 'add'){
     $sql = 'INSERT INTO track VALUES(NULL, "New track", 0, 0, "[]", "[]")';
     if($conn->query($sql) === TRUE){
       $response['result'] = 'ok';
@@ -32,7 +32,7 @@
   else if($request->cmd === 'edit'){
 
   }
-  else if($request->cmd === 'delete'){
+  else if($request->cmd === 'remove'){
     $sql = 'DELETE FROM track WHERE id = ' . $request->id;
     if($conn->query($sql) === TRUE){
       $response['result'] = 'ok';

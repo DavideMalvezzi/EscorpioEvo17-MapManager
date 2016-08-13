@@ -1,55 +1,77 @@
 var tracks = [];
+var mode = "waypoints";
 
 function reloadTrackList(){
   $("#track-combo").empty();
 
-  for(id in tracks){
-    $("#track-combo").append('<option value="' + id + '">' + tracks[id].name + '</option>');
-  }
+  var request = {};
+  request['cmd'] = 'get_all';
+
+  ajaxRequest(request,
+    function(response){
+      if(response.result === 'ok'){
+        tracks = response.tracks;
+        for(var i = 0; i < tracks.length; i++){
+          $("#track-combo").append('<option value="' + i + '">' + tracks[i].name + '</option>');
+        }
+      }
+      else{
+        console.log(response.error);
+      }
+    }
+  );
 }
 
 function editTrack(){
   if(tracks.length > 0){
-    var id = parseInt($("#track-combo").val());
-    $("#track-name-text").val(tracks[id].name);
-    $("#track-centerlat-text").val(tracks[id].centerLat);
-    $("#track-centerlon-text").val(tracks[id].centerLon);
+    var index = parseInt($("#track-combo").val());
+    $("#track-name-text").val(tracks[index].name);
+    $("#track-centerlat-text").val(tracks[index].center_lat);
+    $("#track-centerlon-text").val(tracks[index].center_lon);
 
-    loadWaypoints(id);
-    loadPath(id);
+    loadWaypoints(index);
+    loadPath(index);
 
-    setCenter(tracks[id].centerLat, tracks[id].centerLon);
+    if(mode === "waypoints"){
+      hidePolyline();
+    }
+
+    setCenter(parseFloat(tracks[index].center_lat), parseFloat(tracks[index].center_lon));
     setZoom(17);
   }
 }
 
-function loadWaypoints(id){
+function loadWaypoints(index){
   $("#waypoints-combo").empty();
   clearWaypoints();
-  for(var i = 0; i < tracks[id].waypoints.length; i++){
+
+  var waypoints = JSON.parse(tracks[index].waypoints);
+  for(var i = 0; i < waypoints.length; i++){
     $("#waypoints-combo").append('<option value="' + i + '">Waypoint ' + i + '</option>');
-    addWayPoint(tracks[id].waypoints[i].lat, tracks[id].waypoints[i].lon);
+    addWayPoint(waypoints[i].lat, waypoints[i].lon);
   }
 }
 
-function loadPath(id){
-  setPolylinePath(tracks[id].path);
+function loadPath(index){
+  setPolylinePath(JSON.parse(tracks[index].path));
 }
 
 function enableWaypointsEditing(){
+  mode = "waypoints";
   hidePolyline();
+  showWaypoints();
   setEnabled("#add-waypoint-btn", true);
   setEnabled("#remove-waypoint-btn", true);
-  setEnabled("#edit-waypoint-btn", true);
   setEnabled("#go-waypoint-btn", true);
   setEnabled("#waypoints-combo", true);
 }
 
 function enablePathEditing(){
+  mode = "path";
   showPolyline();
+  hideWaypoints();
   setEnabled("#add-waypoint-btn", false);
   setEnabled("#remove-waypoint-btn", false);
-  setEnabled("#edit-waypoint-btn", false);
   setEnabled("#go-waypoint-btn", false);
   setEnabled("#waypoints-combo", false);
 }
@@ -78,4 +100,14 @@ function checkCenterCoords(evt){
    return true;
   }
   return false;
+}
+
+function ajaxRequest(request, callback){
+  $.ajax({
+      type: 'post',
+      url: 'track_manager.php',
+      dataType: 'json',
+      data: {'request' : JSON.stringify(request)},
+      success: callback
+  });
 }

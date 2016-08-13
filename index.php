@@ -18,10 +18,10 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.2/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyAD9MxVhOWQBHC9FHkkLrBO45zrnRKj6ng"></script>
     <script src="js/map.js"></script>
     <script src="js/bootstrap_utils.js"></script>
     <script src="js/ui_interface.js"></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?v=3.exp&callback=initMap&key=AIzaSyAD9MxVhOWQBHC9FHkkLrBO45zrnRKj6ng"></script>
   </head>
 
   <body>
@@ -38,6 +38,7 @@
 
       $(function(){
         <?php
+        /*
           $sql = "SELECT * FROM track ORDER BY id ASC";
           $result = $conn->query($sql);
           while($row = $result->fetch_assoc()){
@@ -48,7 +49,9 @@
                                                 path: '. $row['path'] . '
                                               };' . PHP_EOL;
           }
+          */
         ?>
+        initMap();
         reloadTrackList();
 
       });
@@ -61,19 +64,27 @@
 
 
            <div class="row">
-             <div class="col-xs-8">
+             <div class="col-xs-7">
                <div class="form-group">
                  <label for="track-combo">Select a track:</label>
                  <select id="track-combo" class="form-control"></select>
                </div>
              </div>
 
-             <div class="col-xs-4">
+             <div class="col-xs-5">
                <div class="form-group">
-                 <label for="">&nbsp;Edit</label><br>
-                 <button type="button" class="btn btn-primary" onclick="editTrack();">
-                   <span class="glyphicon glyphicon-edit"></span>
-                 </button>
+                 <label for="">&nbsp</label><br>
+                 <div class="btn-group btn-group-sm">
+                   <button type="button" class="btn btn-primary" onclick="editTrack();">
+                     <span class="glyphicon glyphicon-plus"></span>
+                   </button>
+                   <button type="button" class="btn btn-primary" onclick="editTrack();">
+                     <span class="glyphicon glyphicon-edit"></span>
+                   </button>
+                   <button type="button" class="btn btn-primary" onclick="editTrack();">
+                     <span class="glyphicon glyphicon-minus"></span>
+                   </button>
+                 </div>
                </div>
              </div>
            </div>
@@ -139,9 +150,6 @@
                 </button>
                 <button type="button" id="remove-waypoint-btn" class="btn btn-primary">
                   <span class="glyphicon glyphicon-minus"></span>
-                </button>
-                <button type="button" id="edit-waypoint-btn" class="btn btn-primary">
-                  <span class="glyphicon glyphicon-edit"></span>
                 </button>
                 <button type="button" id="go-waypoint-btn"  class="btn btn-primary" onclick="showWaypoint()">
                   Go

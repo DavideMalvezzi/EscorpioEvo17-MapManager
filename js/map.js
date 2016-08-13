@@ -69,7 +69,8 @@ function addWayPoint(lat, lon){
   waypoints.push(new google.maps.Marker({
         position: {lat: lat, lng: lon},
         map: map,
-        title: 'Center'
+        title: 'Center',
+        draggable: true
     })
   );
 }
@@ -82,10 +83,23 @@ function setPolylinePath(path){
   poly.setPath(path);
 }
 
+function hideWaypoints(){
+  for(var i = 0; i < waypoints.length; i++){
+    waypoints[i].setVisible(false);
+  }
+}
+
+function showWaypoints(){
+  for(var i = 0; i < waypoints.length; i++){
+    waypoints[i].setVisible(true);
+  }
+}
+
+
 function hidePolyline(){
-  poly.setMap(null);
+  poly.setVisible(false);
 }
 
 function showPolyline(){
-  poly.setMap(map);
+  poly.setVisible(true);
 }

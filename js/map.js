@@ -24,9 +24,6 @@ function initMap() {
 
   $("#map-container").height($(window).height());
 
-  //map.addListener('click', addLatLng);
-
-  /*
   google.maps.event.addListener(poly, 'rightclick',
     function(e) {
       if (e.vertex !== undefined) {
@@ -34,16 +31,25 @@ function initMap() {
       }
     }
   );
-  */
 
   center = new google.maps.Marker({
       position: {lat: 0, lng: 0},
       map: map,
       title: 'Center'
     });
-
 }
 
+function setMapListener(eventName, callback){
+  map.addListener(eventName, callback);
+}
+
+function removeMapListener(eventName){
+  google.maps.event.clearListeners(map, eventName);
+}
+
+function setMapCursor(name){
+  map.setOptions({ draggableCursor: name });
+}
 
 function setCenter(lat, lon){
   center.setPosition({lat: lat, lng: lon});
@@ -58,6 +64,7 @@ function setZoom(zoom){
   map.setZoom(zoom);
 }
 
+
 function clearWaypoints(){
   for(var i = 0; i < waypoints.length; i++){
     waypoints[i].setMap(null);
@@ -65,7 +72,7 @@ function clearWaypoints(){
   waypoints.splice(0, waypoints.length);
 }
 
-function addWayPoint(lat, lon){
+function addWaypointToMap(lat, lon){
   waypoints.push(new google.maps.Marker({
         position: {lat: lat, lng: lon},
         map: map,
@@ -75,12 +82,13 @@ function addWayPoint(lat, lon){
   );
 }
 
-function panToWaypoint(index){
-  map.setCenter(waypoints[index].getPosition());
+function removeWaypointFromMap(index){
+  waypoints[index].setMap(null);
+  waypoints.splice(index, 1);
 }
 
-function setPolylinePath(path){
-  poly.setPath(path);
+function panToWaypoint(index){
+  map.setCenter(waypoints[index].getPosition());
 }
 
 function hideWaypoints(){
@@ -95,6 +103,17 @@ function showWaypoints(){
   }
 }
 
+function getWaypoint(index){
+  return waypoints[index];
+}
+
+function getWaypointsCount(){
+  return waypoints.length;
+}
+
+function setPolylinePath(path){
+  poly.setPath(path);
+}
 
 function hidePolyline(){
   poly.setVisible(false);
@@ -102,4 +121,8 @@ function hidePolyline(){
 
 function showPolyline(){
   poly.setVisible(true);
+}
+
+function getPolylinePathArray(){
+  return poly.getPath().getArray();
 }

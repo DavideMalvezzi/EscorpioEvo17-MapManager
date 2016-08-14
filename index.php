@@ -85,29 +85,6 @@
              </div>
            </div>
 
-           <div class="row">
-             <div class="col-xs-4">
-               <div class="form-group">
-                 <label for="track-centerlat-text">Center Lat:</label>
-                 <input type="text" class="form-control" id="track-centerlat-text" onchange="onCenterChanged()" onkeypress="return checkCenterCoords()">
-               </div>
-             </div>
-             <div class="col-xs-4">
-               <div class="form-group">
-                 <label for="track-centerlon-text">Center Lon:</label>
-                 <input type="text" class="form-control" id="track-centerlon-text" onchange="onCenterChanged()" onkeypress="return checkCenterCoords()">
-               </div>
-             </div>
-             <div class="col-xs-2">
-               <div class="form-group">
-                 <label for="point-center-btn">Select</label>
-                 <button type="button" id="point-center-btn" class="btn btn-primary">
-                   <span class="glyphicon glyphicon-map-marker"></span>
-                 </button>
-              </div>
-             </div>
-           </div>
-
            <hr>
 
            <div class="row">
@@ -125,15 +102,38 @@
            <hr>
 
            <div class="row">
+             <div class="col-xs-4">
+               <div class="form-group">
+                 <label for="track-centerlat-text">Center Lat:</label>
+                 <input type="text" class="form-control" id="track-centerlat-text" onchange="onCenterChanged()" onkeypress="return checkCenterCoords()">
+               </div>
+             </div>
+             <div class="col-xs-4">
+               <div class="form-group">
+                 <label for="track-centerlon-text">Center Lon:</label>
+                 <input type="text" class="form-control" id="track-centerlon-text" onchange="onCenterChanged()" onkeypress="return checkCenterCoords()">
+               </div>
+             </div>
+             <div class="col-xs-2">
+               <div class="form-group">
+                 <label for="point-center-btn">Select</label>
+                 <button type="button" id="point-center-btn" class="btn btn-primary" onclick="setNewCenter()">
+                   <span class="glyphicon glyphicon-map-marker"></span>
+                 </button>
+              </div>
+             </div>
+           </div>
+
+           <div class="row">
              <div class="col-xs-6">
                <label for="">Way Points:</label>
              </div>
              <div class="col-xs-6">
               <div class="btn-group btn-group-sm pull-right">
-                <button type="button" id="add-waypoint-btn" class="btn btn-primary">
+                <button type="button" id="add-waypoint-btn" class="btn btn-primary" onclick="addNewWaypoint()">
                   <span class="glyphicon glyphicon-plus"></span>
                 </button>
-                <button type="button" id="remove-waypoint-btn" class="btn btn-primary">
+                <button type="button" id="remove-waypoint-btn" class="btn btn-primary" onclick="removeWaypoint()">
                   <span class="glyphicon glyphicon-minus"></span>
                 </button>
                 <button type="button" id="go-waypoint-btn"  class="btn btn-primary" onclick="showWaypoint()">
@@ -156,7 +156,7 @@
              <div class="col-xs-1">
              </div>
              <div class="col-xs-5">
-               <button type="button" class="btn btn-primary fill">Save</button>
+               <button type="button" class="btn btn-primary fill" onclick="save()">Save</button>
              </div>
              <div class="col-xs-5">
                <button type="button" class="btn btn-primary fill">Download CFG</button>

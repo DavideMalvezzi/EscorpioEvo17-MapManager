@@ -29,8 +29,20 @@
       $response['error'] = $conn->error;
     }
   }
-  else if($request->cmd === 'edit'){
-
+  else if($request->cmd === 'update'){
+    $sql = 'UPDATE track SET name = "' . $request->name . '", ' .
+                             'center_lat = ' . $request->center_lat . ', ' .
+                             'center_lon = ' . $request->center_lon . ', ' .
+                             'waypoints = \'' . $request->waypoints . '\', ' .
+                             'path = \'' . $request->path . '\' ' .
+                             'WHERE id = ' . $request->id;
+    if($conn->query($sql) === TRUE){
+     $response['result'] = 'ok';
+    }
+    else{
+     $response['result'] = 'error';
+     $response['error'] = $conn->error;
+    }
   }
   else if($request->cmd === 'remove'){
     $sql = 'DELETE FROM track WHERE id = ' . $request->id;

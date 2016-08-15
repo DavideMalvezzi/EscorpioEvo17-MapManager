@@ -161,7 +161,7 @@
                <button type="button" class="btn btn-primary fill" onclick="save()">Save</button>
              </div>
              <div class="col-xs-5">
-               <button type="button" class="btn btn-primary fill">Download CFG</button>
+               <button type="button" class="btn btn-primary fill" onclick="downloadCfg()">Download CFG</button>
              </div>
              <div class="col-xs-1">
              </div>

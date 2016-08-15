@@ -284,6 +284,7 @@ function editWaypoint(){
   }
 }
 
+
 function save(){
   if(currentTrackIndex != undefined){
     var id = tracks[currentTrackIndex].id;
@@ -336,6 +337,29 @@ function save(){
   }
 }
 
+function downloadCfg(){
+  if(currentTrackIndex !== undefined){
+    var request = {};
+    request['cmd'] = 'download';
+    request['id'] = tracks[currentTrackIndex].id;
+    ajaxRequest(request,
+      function(response){
+        if(response.result === 'ok'){
+          var properties = {type: 'plain/text'};
+          var file = new File([response.cfg], "GPS.CFG", properties);
+          var link = document.createElement("a");
+          link.download = "GPS.CFG";
+          link.href = URL.createObjectURL(file);
+          link.click();
+        }
+        else{
+          console.log(response.error);
+        }
+      }
+    );
+  }
+
+}
 
 function ajaxRequest(request, callback){
   $.ajax({

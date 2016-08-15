@@ -47,7 +47,6 @@
       <div class="row">
          <div class="col-xs-3" id="gui-container">
 
-
            <div class="row">
              <div class="col-xs-7">
                <div class="form-group">
@@ -133,6 +132,9 @@
                 <button type="button" id="add-waypoint-btn" class="btn btn-primary" onclick="addNewWaypoint()">
                   <span class="glyphicon glyphicon-plus"></span>
                 </button>
+                <button type="button" id="edit-waypoint-btn" class="btn btn-primary" onclick="editWaypoint()">
+                  <span class="glyphicon glyphicon-edit"></span>
+                </button>
                 <button type="button" id="remove-waypoint-btn" class="btn btn-primary" onclick="removeWaypoint()">
                   <span class="glyphicon glyphicon-minus"></span>
                 </button>
@@ -167,11 +169,48 @@
 
          </div>
 
-
-
          <div id="map-container" class="col-xs-9">
          </div>
 
+      </div>
+    </div>
+
+    <div class="modal fade" id="edit-waypoint-modal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="">Edit waypoint</h4>
+          </div>
+          <div class="modal-body">
+
+            <div class="form-group">
+              <label for="waypoint-name-text">Name:</label>
+              <input type="text" class="form-control" id="waypoint-name-text">
+            </div>
+
+            <div class="form-group">
+              <label for="waypoint-radius-spin">Radius(m):</label>
+              <input type="number" class="form-control" id="waypoint-radius-spin" min="1" max="100" value="1">
+            </div>
+
+            <div class="form-group">
+              <label for="waypoint-space-spin">Space(m):</label>
+              <input type="number" class="form-control" id="waypoint-space-spin" min="0" max="100" value="0">
+            </div>
+
+            <div class="form-group">
+              <label for="waypoint-time-spin">Time(s):</label>
+              <input type="number" class="form-control" id="waypoint-time-spin" min="1" max="100" value="1">
+            </div>
+
+            <div class="checkbox">
+              <label><input type="checkbox" id="waypoint-ref-check" checked="">Is reference</label>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" onclick="saveWaypoint()">Save</button>
+          </div>
+        </div>
       </div>
     </div>
 
